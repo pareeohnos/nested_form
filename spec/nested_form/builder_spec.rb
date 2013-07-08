@@ -19,9 +19,9 @@ require "spec_helper"
 
       describe '#link_to_add' do
         it "behaves similar to a Rails link_to" do
-          subject.link_to_add("Add", :tasks).should == '<a href="javascript:void(0)" class="add_nested_fields" data-association="tasks" data-blueprint-id="tasks_fields_blueprint">Add</a>'
-          subject.link_to_add("Add", :tasks, :class => "foo", :href => "url").should == '<a href="url" class="foo add_nested_fields" data-association="tasks" data-blueprint-id="tasks_fields_blueprint">Add</a>'
-          subject.link_to_add(:tasks) { "Add" }.should == '<a href="javascript:void(0)" class="add_nested_fields" data-association="tasks" data-blueprint-id="tasks_fields_blueprint">Add</a>'
+          subject.link_to_add("Add", :tasks).should == '<a href="javascript:void(0)" class="add_nested_fields" data-association="tasks" data-blueprint-id="tasks_fields_blueprint" data-wrapper-class="fields">Add</a>'
+          subject.link_to_add("Add", :tasks, :class => "foo", :href => "url").should == '<a href="url" class="foo add_nested_fields" data-association="tasks" data-blueprint-id="tasks_fields_blueprint" data-wrapper-class="fields">Add</a>'
+          subject.link_to_add(:tasks) { "Add" }.should == '<a href="javascript:void(0)" class="add_nested_fields" data-association="tasks" data-blueprint-id="tasks_fields_blueprint" data-wrapper-class="fields">Add</a>'
         end
 
         it 'raises ArgumentError when missing association is provided' do
@@ -39,16 +39,16 @@ require "spec_helper"
 
       describe '#link_to_remove' do
         it "behaves similar to a Rails link_to" do
-          subject.link_to_remove("Remove").should == '<input id="item__destroy" name="item[_destroy]" type="hidden" value="false" /><a href="javascript:void(0)" class="remove_nested_fields">Remove</a>'
-          subject.link_to_remove("Remove", :class => "foo", :href => "url").should == '<input id="item__destroy" name="item[_destroy]" type="hidden" value="false" /><a href="url" class="foo remove_nested_fields">Remove</a>'
-          subject.link_to_remove { "Remove" }.should == '<input id="item__destroy" name="item[_destroy]" type="hidden" value="false" /><a href="javascript:void(0)" class="remove_nested_fields">Remove</a>'
+          subject.link_to_remove("Remove").should == '<input id="item__destroy" name="item[_destroy]" type="hidden" value="false" /><a href="javascript:void(0)" class="remove_nested_fields" data-wrapper-class="fields">Remove</a>'
+          subject.link_to_remove("Remove", :class => "foo", :href => "url").should == '<input id="item__destroy" name="item[_destroy]" type="hidden" value="false" /><a href="url" class="foo remove_nested_fields" data-wrapper-class="fields">Remove</a>'
+          subject.link_to_remove { "Remove" }.should == '<input id="item__destroy" name="item[_destroy]" type="hidden" value="false" /><a href="javascript:void(0)" class="remove_nested_fields" data-wrapper-class="fields">Remove</a>'
         end
 
         it 'has data-association attribute' do
           project.tasks.build
           subject.fields_for(:tasks, :builder => builder) do |tf|
             tf.link_to_remove 'Remove'
-          end.should match '<a.+data-association="tasks">Remove</a>'
+          end.should match '<a.+data-association="tasks".+>Remove</a>'
         end
 
         context 'when association is declared in a model by the class_name' do
@@ -56,7 +56,7 @@ require "spec_helper"
             project.assignments.build
             subject.fields_for(:assignments, :builder => builder) do |tf|
               tf.link_to_remove 'Remove'
-            end.should match '<a.+data-association="assignments">Remove</a>'
+            end.should match '<a.+data-association="assignments".+>Remove</a>'
           end
         end
 
@@ -68,7 +68,7 @@ require "spec_helper"
               tf.fields_for(:milestones, :builder => builder) do |mf|
                 mf.link_to_remove 'Remove'
               end
-            end.should match '<a.+data-association="milestones">Remove</a>'
+            end.should match '<a.+data-association="milestones".+>Remove</a>'
           end
         end
       end
