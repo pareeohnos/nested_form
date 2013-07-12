@@ -128,7 +128,7 @@ Note that the `:data` option above only works in Rails 3.1+.  For Rails 3.0 and
 below, the following syntax must be used.
 
 ```erb
-<p><%= f.link_to_add "Add a task", :tasks, "data-target" => "#tasks" %></p>
+<p><%= f.link_to_add "Add a task", :tasks, "data-target" => "#tasks", "data-container" => ".task-wrapper" %></p>
 ```
 
 
