@@ -103,13 +103,6 @@ fields should be inserted.
 <p><%= f.link_to_add "Add a task", :tasks, :data => { :target => "#tasks" } %></p>
 ```
 
-Note that the `:data` option above only works in Rails 3.1+.  For Rails 3.0 and
-below, the following syntax must be used.
-
-```erb
-<p><%= f.link_to_add "Add a task", :tasks, "data-target" => "#tasks" %></p>
-```
-
 ### Specifying a custom Container Selector for the Wrapper
 
 By default, nested_form assumes that the wrapper has a `class="fields"`
