@@ -95,7 +95,7 @@ module NestedForm
       perform_wrap &&= options[:wrapper] != false # wrap even if nil
 
       if perform_wrap
-        @template.content_tag(:div, super, :class => classes)
+        @template.content_tag(:div, super, :class => classes, :data => { "nested-wrapper" => "true" })
       else
         super
       end
